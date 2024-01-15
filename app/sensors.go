@@ -95,6 +95,17 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "1",
 			},
 		},
+		"total_cost": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.TotalCost) },
+			Config: map[string]string{
+				"name":                        "Cost of charge session",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
 		"halo_brightness": {
 			Component: "number",
 			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
