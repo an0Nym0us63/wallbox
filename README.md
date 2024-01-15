@@ -1,7 +1,10 @@
 # MQTT Bridge for Wallbox
-This repo is only for personnal testing use the official jagheterfredrik repo
+This repo is only for personnal testing (before making eventually some pull requests) to ease deployment on my Wallbox
 
-ORIGINAL README
+USE THE OFFICIAL JAGHETERFREDRIK REPO if you want to install the bridge
+
+# ORIGINAL README
+
 This open-source project connects your Wallbox fully locally to Home Assistant, providing you with unparalleled speed and reliability.
 
 ## Features
