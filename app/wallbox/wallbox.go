@@ -19,7 +19,7 @@ type DataCache struct {
 		HaloBrightness        int     `db:"halo_brightness"`
 		CumulativeAddedEnergy float64 `db:"cumulative_added_energy"`
 		AddedRange            float64 `db:"added_range"`
-		Cost                  float64 `db:"cost"`
+		TotalCost             float64 `db:"total_cost"`
 	}
 
 	RedisState struct {
@@ -105,7 +105,7 @@ func (w *Wallbox) RefreshData() {
 		"  `wallbox_config`.`max_charging_current`," +
 		"  `wallbox_config`.`halo_brightness`," +
 		"  `power_outage_values`.`charged_energy` AS cumulative_added_energy," +
-		"  `latest_session`.`cost` AS cost," +
+		"  `latest_session`.`total_cost`," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    `active_session`.`charged_range`," +
 		"    `latest_session`.`charged_range`) AS added_range " +
