@@ -5,8 +5,8 @@
 *.out
 
 # make.sh output
-bridge-armhf
-bridge-arm64
+#bridge-armhf
+#bridge-arm64
 
 # Go workspace file
 go.work
