@@ -110,7 +110,7 @@ func (w *Wallbox) RefreshData() {
 		"FROM `wallbox_config`," +
 		"    `active_session`," +
 		"    `power_outage_values`," +
-		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session,"
+		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session"
 	w.sqlClient.Get(&w.Data.SQL, query)
 }
 
