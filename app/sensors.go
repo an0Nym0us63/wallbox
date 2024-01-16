@@ -122,7 +122,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"car_battery": {
 			Component: "sensor",
-			Setter:    func(val string) { w.SetCarBattery(strToFloat(val)*1000) },
+			Setter:    func(val string) { w.SetCarBattery(strToFloat(val)) },
 			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarBattery/1000) },
 			Config: map[string]string{
 				"name":                        "Car Battery",
@@ -135,7 +135,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"car_consumption": {
 			Component: "sensor",
-			Setter:    func(val string) { w.SetCarConsumption(strToFloat(val)*10) },
+			Setter:    func(val string) { w.SetCarConsumption(strToFloat(val)) },
 			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarConsumption/10) },
 			Config: map[string]string{
 				"name":                        "Car Consumption",

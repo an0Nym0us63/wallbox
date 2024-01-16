@@ -141,7 +141,7 @@ func (w *Wallbox) UserId() string {
 }
 
 func (w *Wallbox) SetCarConsumption(consumption float64) {
-	w.sqlClient.MustExec("UPDATE `cars` SET `consumption`=? where car_id=1", consumption)
+	w.sqlClient.MustExec("UPDATE `cars` SET `consumption`=? where car_id=1", consumption*10)
 }
 
 func (w *Wallbox) SetEnergyCost(cost float64) {
@@ -149,7 +149,7 @@ func (w *Wallbox) SetEnergyCost(cost float64) {
 }
 
 func (w *Wallbox) SetCarBattery(battery float64) {
-	w.sqlClient.MustExec("UPDATE `cars` SET `battery`=? where id=1", battery)
+	w.sqlClient.MustExec("UPDATE `cars` SET `battery`=? where id=1", battery*1000)
 }
 
 func (w *Wallbox) AvailableCurrent() int {
