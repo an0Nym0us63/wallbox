@@ -124,8 +124,8 @@ func (w *Wallbox) RefreshData() {
 		"FROM `wallbox_config`," +
 		"    `active_session`," +
 		"    `power_outage_values`," +
-		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session"+
-		"    (SELECT * FROM `cars` where `car_id`=1) AS car_first_id"+
+		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session,"+
+		"    (SELECT * FROM `cars` where `car_id`=1) AS car_first_id,"+
 		"    (SELECT * FROM `energy` where `id`=1) AS energy_first_id"
 	w.sqlClient.Get(&w.Data.SQL, query)
 }
