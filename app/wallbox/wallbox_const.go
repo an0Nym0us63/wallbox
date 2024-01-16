@@ -1,7 +1,7 @@
 package wallbox
 
 var wallboxStatusCodes = []string{
-	"Prêt",
+	"Disponible",
 	"En charge",
 	"Branché en attente voiture",
 	"Branché en attente planning",
