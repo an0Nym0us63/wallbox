@@ -106,19 +106,6 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
-		"energy_cost": {
-			Component: "sensor",
-			Setter:    func(val string) { w.SetEnergyCost(strToFloat(val)) },
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost) },
-			Config: map[string]string{
-				"name":                        "Energy Cost",
-				"command_topic":               "~/set",
-				"device_class":                "energy",
-				"unit_of_measurement":         "€/kwh",
-				"state_class":                 "measurement",
-				"suggested_display_precision": "2",
-			},
-		},
 		"halo_brightness": {
 			Component: "number",
 			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
@@ -146,9 +133,11 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"car_consumption": {
 			Component: "sensor",
+			Setter:    func(val string) { w.SetCarConsumption(strToFloat(val)) },
 			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarConsumption) },
 			Config: map[string]string{
 				"name":                        "Car Consumption",
+				"command_topic":               "~/set",
 				"device_class":                "energy",
 				"unit_of_measurement":         "€/kWh",
 				"state_class":                 "measurement",
