@@ -183,7 +183,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"grid_energy": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint((w.Data.RedisState.ScheduleEnergy/1000)-(w.Data.SQL.GreenEnergy/1000)) },
+			Getter:    func() string { return fmt.Sprint((w.Data.RedisState.ScheduleEnergy-w.Data.SQL.GreenEnergy)/1000) },
 			Config: map[string]string{
 				"name":                        "Added Grid Energy",
 				"device_class":                "energy",
