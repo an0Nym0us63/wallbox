@@ -109,7 +109,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		"energy_cost": {
 			Component: "sensor",
 			Setter:    func(val string) { w.SetEnergyCost(strToFloat(val)) },
-			Getter:    func() string { return strconv.Itoa(w.Data.SQL.EnergyCost) },
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost) },
 			Config: map[string]string{
 				"name":                        "Energy Cost",
 				"command_topic":               "~/set",
