@@ -26,6 +26,17 @@ func strToFloat(val string) float64 {
 
 func getEntities(w *wallbox.Wallbox) map[string]Entity {
 	return map[string]Entity{
+		"all_redis": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState) },
+			Config: map[string]string{
+				"name":                        "All redis",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+			},
+		},
 		"added_energy": {
 			Component: "sensor",
 			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ScheduleEnergy) },
