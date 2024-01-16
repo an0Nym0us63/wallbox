@@ -24,6 +24,7 @@ type DataCache struct {
 		TotalCost             float64 `db:"total_cost"`
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
+		EnergyCost            float64 `db:"energy_cost"`
 	}
 
 	RedisState struct {
@@ -112,6 +113,7 @@ func (w *Wallbox) RefreshData() {
 		"  `latest_session`.`total_cost`," +
 		"  `latest_session`.`charging_time`," +
 		"  `latest_session`.`green_energy`," +
+		"  `first_energy`.`cost` AS energy_cost," +
 		"  `first_car`.`consumption` AS car_consumption," +
 		"  `first_car`.`battery` AS car_battery," +
 		"  IF(`active_session`.`unique_id` != 0," +
@@ -121,6 +123,7 @@ func (w *Wallbox) RefreshData() {
 		"    `active_session`," +
 		"    `power_outage_values`," +
 		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session," +
+		"    (SELECT * FROM `energy` ORDER BY `id` ASC LIMIT 1) AS first_energy," +
 		"    (SELECT * FROM `cars` ORDER BY `car_id` ASC LIMIT 1) AS first_car"
 	w.sqlClient.Get(&w.Data.SQL, query)
 }
@@ -139,6 +142,10 @@ func (w *Wallbox) UserId() string {
 
 func (w *Wallbox) SetCarConsumption(consumption float64) {
 	w.sqlClient.MustExec("UPDATE `cars` SET `consumption`=? where car_id=1", consumption)
+}
+
+func (w *Wallbox) SetEnergyCost(cost float64) {
+	w.sqlClient.MustExec("UPDATE `energy` SET `cost`=? where id=1", cost)
 }
 
 func (w *Wallbox) AvailableCurrent() int {
