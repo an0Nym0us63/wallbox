@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"reflect"
-	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -26,8 +25,6 @@ type DataCache struct {
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
-		StartTime             time.Time `db:"start_time"`
-		EndTime               time.Time `db:"end_time"`
 	}
 
 	RedisState struct {
@@ -116,8 +113,6 @@ func (w *Wallbox) RefreshData() {
 		"  `latest_session`.`total_cost`," +
 		"  `latest_session`.`charging_time`," +
 		"  `latest_session`.`green_energy`," +
-		"  `latest_session`.`start_time`," +
-		"  `latest_session`.`end_time`," +
 		"  `first_energy`.`cost` AS energy_cost," +
 		"  `first_car`.`consumption` AS car_consumption," +
 		"  `first_car`.`battery` AS car_battery," +

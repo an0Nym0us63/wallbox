@@ -181,28 +181,6 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
-		"start_time": {
-			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.StartTime) },
-			Config: map[string]string{
-				"name":                        "Start Time",
-				"device_class":                "energy",
-				"unit_of_measurement":         "Wh",
-				"state_class":                 "measurement",
-				"suggested_display_precision": "2",
-			},
-		},
-		"end_time": {
-			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EndTime) },
-			Config: map[string]string{
-				"name":                        "End Time",
-				"device_class":                "energy",
-				"unit_of_measurement":         "Wh",
-				"state_class":                 "measurement",
-				"suggested_display_precision": "2",
-			},
-		},
 		"lock": {
 			Component: "lock",
 			Setter:    func(val string) { w.SetLocked(strToInt(val)) },
