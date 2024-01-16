@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -25,8 +26,8 @@ type DataCache struct {
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
-		StartTime             string `db:"start_time"`
-		EndTime               string `db:"end_time"`
+		StartTime             time.Time `db:"start_time"`
+		EndTime               time.Time `db:"end_time"`
 	}
 
 	RedisState struct {
