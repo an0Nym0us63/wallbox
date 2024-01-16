@@ -25,8 +25,8 @@ type DataCache struct {
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
-		StartTime            float64 `db:"start_time"`
-		EndTime              float64 `db:"end_time"`
+		StartTime             string `db:"start_time"`
+		EndTime               string `db:"end_time"`
 	}
 
 	RedisState struct {
