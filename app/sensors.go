@@ -26,17 +26,6 @@ func strToFloat(val string) float64 {
 
 func getEntities(w *wallbox.Wallbox) map[string]Entity {
 	return map[string]Entity{
-		"all_redis": {
-			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.RedisState) },
-			Config: map[string]string{
-				"name":                        "All redis",
-				"device_class":                "energy",
-				"unit_of_measurement":         "Wh",
-				"state_class":                 "total",
-				"suggested_display_precision": "1",
-			},
-		},
 		"added_energy": {
 			Component: "sensor",
 			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ScheduleEnergy) },
@@ -113,6 +102,72 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"name":                        "Cost of charge session",
 				"device_class":                "energy",
 				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"charging_time": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.ChargingTime) },
+			Config: map[string]string{
+				"name":                        "Effective Charging Time",
+				"device_class":                "energy",
+				"unit_of_measurement":         "s",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"green_energy": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.GreenEnergy) },
+			Config: map[string]string{
+				"name":                        "Added Green Energy",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"car_name": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarName) },
+			Config: map[string]string{
+				"name":                        "Car Name",
+				"device_class":                "energy",
+				"unit_of_measurement":         "",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"car_consumption": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarConsumption) },
+			Config: map[string]string{
+				"name":                        "Car Consumption",
+				"device_class":                "energy",
+				"unit_of_measurement":         "kWh/100",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"car_battery": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarBattery) },
+			Config: map[string]string{
+				"name":                        "Car Battery",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"energy_cost": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost) },
+			Config: map[string]string{
+				"name":                        "Energy Cost",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€/kWh",
 				"state_class":                 "measurement",
 				"suggested_display_precision": "2",
 			},

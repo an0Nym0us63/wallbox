@@ -20,6 +20,12 @@ type DataCache struct {
 		CumulativeAddedEnergy float64 `db:"cumulative_added_energy"`
 		AddedRange            float64 `db:"added_range"`
 		TotalCost             float64 `db:"total_cost"`
+		ChargingTime          float64 `db:"charging_time"`
+		GreenEnergy           float64 `db:"green_energy"`
+		CarName               string  `db:"car_name"`
+		CarConsumption        float64 `db:"car_consumption"`
+		CarBattery            float64 `db:"car_battery"`
+		EnergyCost            float64 `db:"energy_cost"`
 	}
 
 	RedisState struct {
@@ -106,13 +112,21 @@ func (w *Wallbox) RefreshData() {
 		"  `wallbox_config`.`halo_brightness`," +
 		"  `power_outage_values`.`charged_energy` AS cumulative_added_energy," +
 		"  `latest_session`.`total_cost`," +
+		"  `latest_session`.`charging_time`," +
+		"  `latest_session`.`green_energy`," +
+		"  `car_first_id`.`name` AS car_name," +
+		"  `car_first_id`.`consumption` AS car_consumption," +
+		"  `car_first_id`.`battery` AS car_battery," +
+		"  `energy_first_id`.`cost` AS energy_cost," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    `active_session`.`charged_range`," +
 		"    `latest_session`.`charged_range`) AS added_range " +
 		"FROM `wallbox_config`," +
 		"    `active_session`," +
 		"    `power_outage_values`," +
-		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session"
+		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session"+
+		"    (SELECT * FROM `cars` where `car_id`=1) AS car_first_id"+
+		"    (SELECT * FROM `energy` where `id`=1) AS energy_first_id"
 	w.sqlClient.Get(&w.Data.SQL, query)
 }
 
