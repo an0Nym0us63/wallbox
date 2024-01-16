@@ -19,9 +19,9 @@ type DataCache struct {
 		HaloBrightness        int     `db:"halo_brightness"`
 		CumulativeAddedEnergy float64 `db:"cumulative_added_energy"`
 		AddedRange            float64 `db:"added_range"`
-		TotalCost             float64 `db:"total_cost"`
 		ChargingTime          float64 `db:"charging_time"`
 		GreenEnergy           float64 `db:"green_energy"`
+		TotalCost             float64 `db:"total_cost"`
 	}
 
 	RedisState struct {
