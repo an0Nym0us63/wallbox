@@ -148,6 +148,10 @@ func (w *Wallbox) SetEnergyCost(cost float64) {
 	w.sqlClient.MustExec("UPDATE `energy` SET `cost`=? where id=1", cost)
 }
 
+func (w *Wallbox) SetCarBattery(battery float64) {
+	w.sqlClient.MustExec("UPDATE `cars` SET `battery`=? where id=1", battery)
+}
+
 func (w *Wallbox) AvailableCurrent() int {
 	var availableCurrent int
 	w.sqlClient.QueryRow("SELECT `max_avbl_current` FROM `state_values` ORDER BY `id` DESC LIMIT 1").Scan(&availableCurrent)

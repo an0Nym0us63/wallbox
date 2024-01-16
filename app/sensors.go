@@ -28,7 +28,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 	return map[string]Entity{
 		"added_energy": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ScheduleEnergy) },
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ScheduleEnergy/1000) },
 			Config: map[string]string{
 				"name":                        "Added energy",
 				"device_class":                "energy",
@@ -86,7 +86,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"cumulative_added_energy": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CumulativeAddedEnergy) },
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CumulativeAddedEnergy/1000) },
 			Config: map[string]string{
 				"name":                        "Cumulative added energy",
 				"device_class":                "energy",
@@ -122,9 +122,11 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"car_battery": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarBattery) },
+			Setter:    func(val string) { w.SetCarBattery(strToFloat(val)) },
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarBattery/1000) },
 			Config: map[string]string{
 				"name":                        "Car Battery",
+				"command_topic":               "~/set",
 				"device_class":                "energy",
 				"unit_of_measurement":         "Wh",
 				"state_class":                 "measurement",
@@ -170,7 +172,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"green_energy": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.GreenEnergy) },
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.GreenEnergy/1000) },
 			Config: map[string]string{
 				"name":                        "Added Green Energy",
 				"device_class":                "energy",
