@@ -1,25 +1,25 @@
 package wallbox
 
 var wallboxStatusCodes = []string{
-	"Ready",
-	"Charging",
-	"Connected waiting car",
-	"Connected waiting schedule",
-	"Paused",
-	"Schedule end",
-	"Locked",
-	"Error",
+	"Prêt",
+	"En charge",
+	"Branché en attente voiture",
+	"Branché en attente planning",
+	"En pause",
+	"Fin de planning",
+	"Verrouillé",
+	"Erreur",
 	"Connected waiting current assignation",
 	"Unconfigured power sharing",
-	"Queue by power boost",
-	"Discharging",
+	"En attente par power boost",
+	"En décharge",
 	"Connected waiting admin auth for mid",
 	"Connected mid safety margin exceeded",
 	"OCPP unavailable",
 	"OCPP charge finishing",
 	"OCPP reserved",
 	"Updating",
-	"Queue by eco smart",
+	"En attente par eco smart",
 }
 
 var stateOverrides = map[int]int{

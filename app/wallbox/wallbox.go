@@ -25,6 +25,8 @@ type DataCache struct {
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
+		StartTime            float64 `db:"start_time"`
+		EndTime              float64 `db:"end_time"`
 	}
 
 	RedisState struct {
@@ -113,6 +115,8 @@ func (w *Wallbox) RefreshData() {
 		"  `latest_session`.`total_cost`," +
 		"  `latest_session`.`charging_time`," +
 		"  `latest_session`.`green_energy`," +
+		"  `latest_session`.`start_time`," +
+		"  `latest_session`.`end_time`," +
 		"  `first_energy`.`cost` AS energy_cost," +
 		"  `first_car`.`consumption` AS car_consumption," +
 		"  `first_car`.`battery` AS car_battery," +
