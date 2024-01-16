@@ -188,6 +188,10 @@ func (w *Wallbox) SetMaxChargingCurrent(current int) {
 	w.sqlClient.MustExec("UPDATE `wallbox_config` SET `max_charging_current`=?", current)
 }
 
+func (w *Wallbox) SetEnergyCost(cost float64) {
+	w.sqlClient.MustExec("UPDATE `energy` SET `cost`=? where id=1", cost)
+}
+
 func (w *Wallbox) SetHaloBrightness(brightness int) {
 	w.sqlClient.MustExec("UPDATE `wallbox_config` SET `halo_brightness`=?", brightness)
 }

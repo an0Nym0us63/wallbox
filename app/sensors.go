@@ -108,13 +108,29 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"energy_cost": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost) },
+			Setter:    func(val string) { w.SetEnergyCost(strToFloat(val)) },
+			Getter:    func() string { return strconv.Itoa(w.Data.SQL.EnergyCost) },
 			Config: map[string]string{
 				"name":                        "Energy Cost",
+				"command_topic":               "~/set",
 				"device_class":                "energy",
 				"unit_of_measurement":         "€/kwh",
 				"state_class":                 "measurement",
 				"suggested_display_precision": "2",
+			},
+		},
+		"halo_brightness": {
+			Component: "number",
+			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
+			Getter:    func() string { return strconv.Itoa(w.Data.SQL.HaloBrightness) },
+			Config: map[string]string{
+				"name":                "Halo Brightness",
+				"command_topic":       "~/set",
+				"min":                 "0",
+				"max":                 "100",
+				"icon":                "mdi:brightness-percent",
+				"unit_of_measurement": "%",
+				"entity_category":     "config",
 			},
 		},
 		"car_battery": {
@@ -159,20 +175,6 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"unit_of_measurement":         "Wh",
 				"state_class":                 "measurement",
 				"suggested_display_precision": "2",
-			},
-		},
-		"halo_brightness": {
-			Component: "number",
-			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
-			Getter:    func() string { return strconv.Itoa(w.Data.SQL.HaloBrightness) },
-			Config: map[string]string{
-				"name":                "Halo Brightness",
-				"command_topic":       "~/set",
-				"min":                 "0",
-				"max":                 "100",
-				"icon":                "mdi:brightness-percent",
-				"unit_of_measurement": "%",
-				"entity_category":     "config",
 			},
 		},
 		"lock": {
