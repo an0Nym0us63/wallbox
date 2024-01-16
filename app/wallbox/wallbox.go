@@ -22,7 +22,6 @@ type DataCache struct {
 		TotalCost             float64 `db:"total_cost"`
 		ChargingTime          float64 `db:"charging_time"`
 		GreenEnergy           float64 `db:"green_energy"`
-		CarName               string  `db:"car_name"`
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
