@@ -21,8 +21,10 @@ type DataCache struct {
 		AddedRange            float64 `db:"added_range"`
 		ChargingTime          float64 `db:"charging_time"`
 		GreenEnergy           float64 `db:"green_energy"`
-		TotalCost            float64 `db:"total_cost"`
+		TotalCost             float64 `db:"total_cost"`
 		EnergyCost            float64 `db:"energy_cost"`
+		CarConsumption        float64 `db:"car_consumption"`
+		CarBattery            float64 `db:"car_battery"`
 	}
 
 	RedisState struct {
@@ -112,6 +114,8 @@ func (w *Wallbox) RefreshData() {
 		"  `latest_session`.`charging_time`," +
 		"  `latest_session`.`green_energy`," +
 		"  `first_energy`.`cost` AS energy_cost," +
+		"  `first_car`.`consumption` AS car_consumption," +
+		"  `first_car`.`battery` AS car_battery," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    `active_session`.`charged_range`," +
 		"    `latest_session`.`charged_range`) AS added_range " +
@@ -119,7 +123,8 @@ func (w *Wallbox) RefreshData() {
 		"    `active_session`," +
 		"    `power_outage_values`," +
 		"    (SELECT * FROM `session` ORDER BY `id` DESC LIMIT 1) AS latest_session," +
-		"    (SELECT * FROM `energy` ORDER BY `id` ASC LIMIT 1) AS first_energy"
+		"    (SELECT * FROM `energy` ORDER BY `id` ASC LIMIT 1) AS first_energy," +
+		"    (SELECT * FROM `cars` ORDER BY `car_id` ASC LIMIT 1) AS first_car"
 	w.sqlClient.Get(&w.Data.SQL, query)
 }
 

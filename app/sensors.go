@@ -117,6 +117,28 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
+		"car_battery": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarBattery) },
+			Config: map[string]string{
+				"name":                        "Car Battery",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"car_consumption": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.CarConsumption) },
+			Config: map[string]string{
+				"name":                        "Car Consumption",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€/kWh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
 		"charging_time": {
 			Component: "sensor",
 			Getter:    func() string { return fmt.Sprint(w.Data.SQL.ChargingTime) },
