@@ -181,6 +181,17 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
+		"grid_energy": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint((w.Data.RedisState.ScheduleEnergy/1000)-(w.Data.SQL.GreenEnergy/1000)) },
+			Config: map[string]string{
+				"name":                        "Added Grid Energy",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
 		"lock": {
 			Component: "lock",
 			Setter:    func(val string) { w.SetLocked(strToInt(val)) },
