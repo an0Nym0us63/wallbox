@@ -25,6 +25,7 @@ type DataCache struct {
 		CarConsumption        float64 `db:"car_consumption"`
 		CarBattery            float64 `db:"car_battery"`
 		EnergyCost            float64 `db:"energy_cost"`
+		AddedEnergy           float64 `db:"energy_total"`
 		StartTime             string  `db:"start_time"`
 		EndTime               string  `db:"end_time"`
 	}
@@ -136,7 +137,10 @@ func (w *Wallbox) RefreshData() {
 		"    to_char(`latest_session`.`start_time`,'YYYY-MM-DD HH24:MI:SS')) AS start_time," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    `active_session`.`charged_range`," +
-		"    `latest_session`.`charged_range`) AS added_range " +
+		"    `latest_session`.`charged_range`) AS added_range," +
+		"  IF(`active_session`.`unique_id` != 0," +
+		"    `active_session`.`energy_total`," +
+		"    `latest_session`.`energy_total`) AS energy_total " +
 		"FROM `wallbox_config`," +
 		"    `active_session`," +
 		"    `power_outage_values`," +

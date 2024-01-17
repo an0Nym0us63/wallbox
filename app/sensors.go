@@ -26,11 +26,11 @@ func strToFloat(val string) float64 {
 
 func getEntities(w *wallbox.Wallbox) map[string]Entity {
 	return map[string]Entity{
-		"added_energy": {
+		"added_energy_active": {
 			Component: "sensor",
 			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ScheduleEnergy/1000) },
 			Config: map[string]string{
-				"name":                        "Added energy",
+				"name":                        "Active Added energy",
 				"device_class":                "energy",
 				"unit_of_measurement":         "Wh",
 				"state_class":                 "total",
@@ -46,6 +46,17 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"unit_of_measurement":         "Wh",
 				"state_class":                 "total",
 				"suggested_display_precision": "1",
+			},
+		},
+		"grid_energy_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint((w.Data.RedisState.ScheduleEnergy-w.Data.RedisState.GreenEnergy)/1000) },
+			Config: map[string]string{
+				"name":                        "Active Grid Energy",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
 			},
 		},
 		"added_range_active": {
@@ -79,6 +90,18 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"unit_of_measurement":         "Wh",
 				"state_class":                 "total",
 				"suggested_display_precision": "1",
+			},
+		},
+		"added_energy": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.AddedEnergy/1000) },
+			Config: map[string]string{
+				"name":                        "Added Energy",
+				"device_class":                "distance",
+				"unit_of_measurement":         "km",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+				"icon":                        "mdi:map-marker-distance",
 			},
 		},
 		"added_range": {
@@ -227,7 +250,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"grid_energy": {
 			Component: "sensor",
-			Getter:    func() string { return fmt.Sprint((w.Data.RedisState.ScheduleEnergy-w.Data.SQL.GreenEnergy)/1000) },
+			Getter:    func() string { return fmt.Sprint((w.Data.SQL.AddedEnergy-w.Data.SQL.GreenEnergy)/1000) },
 			Config: map[string]string{
 				"name":                        "Added Grid Energy",
 				"device_class":                "energy",
