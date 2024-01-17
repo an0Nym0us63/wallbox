@@ -34,6 +34,10 @@ type DataCache struct {
 		ControlPilot   int     `redis:"ctrlPilot"`
 		S2open         int     `redis:"S2open"`
 		ScheduleEnergy float64 `redis:"scheduleEnergy"`
+		GreenEnergy    float64 `redis:"session.green_energy"`
+		AddedRange     float64 `redis:"session.charge_range"`
+		ChargingTime   float64 `redis:"session.charging_time"`
+		ChargingSpeed  float64 `redis:"session.charging_speed"`
 	}
 
 	RedisM2W struct {

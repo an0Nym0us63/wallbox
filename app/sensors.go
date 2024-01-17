@@ -37,6 +37,50 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "1",
 			},
 		},
+		"green_energy_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.GreenEnergy/1000) },
+			Config: map[string]string{
+				"name":                        "Green energy active",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+			},
+		},
+		"added_range_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.AddedRange) },
+			Config: map[string]string{
+				"name":                        "Added Range active",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+			},
+		},
+		"charging_time_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ChargingTime) },
+			Config: map[string]string{
+				"name":                        "Charging Time active",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+			},
+		},
+		"charging_speed_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.RedisState.ChargingSpeed) },
+			Config: map[string]string{
+				"name":                        "Charging Speed active",
+				"device_class":                "energy",
+				"unit_of_measurement":         "Wh",
+				"state_class":                 "total",
+				"suggested_display_precision": "1",
+			},
+		},
 		"added_range": {
 			Component: "sensor",
 			Getter:    func() string { return fmt.Sprint(w.Data.SQL.AddedRange) },
