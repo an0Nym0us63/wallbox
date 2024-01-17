@@ -232,6 +232,13 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"name": "Start Time",
 			},
 		},
+		"end_time": {
+			Component: "sensor",
+			Getter:    func() string { return w.Data.SQL.EndTime },
+			Config: map[string]string{
+				"name": "End Time",
+			},
+		},
 	}
 }
 
