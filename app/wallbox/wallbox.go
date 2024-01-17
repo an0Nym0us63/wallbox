@@ -112,9 +112,15 @@ func (w *Wallbox) RefreshData() {
 		"  `wallbox_config`.`max_charging_current`," +
 		"  `wallbox_config`.`halo_brightness`," +
 		"  `power_outage_values`.`charged_energy` AS cumulative_added_energy," +
-		"  `latest_session`.`total_cost`," +
-		"  `latest_session`.`charging_time`," +
-		"  `latest_session`.`green_energy`," +
+		"  IF(`active_session`.`unique_id` != 0," +
+		"    0," +
+		"    `latest_session`.`total_cost`) AS total_cost," +
+		"  IF(`active_session`.`unique_id` != 0," +
+		"    `active_session`.`charging_time`," +
+		"    `latest_session`.`charging_time`) AS charging_time," +
+		"  IF(`active_session`.`unique_id` != 0," +
+		"    0," +
+		"    `latest_session`.`green_energy`) AS green_energy," +
 		"  `first_energy`.`cost` AS energy_cost," +
 		"  `first_car`.`consumption` AS car_consumption," +
 		"  `first_car`.`battery` AS car_battery," +
