@@ -119,7 +119,7 @@ func (w *Wallbox) RefreshData() {
 		"  `first_car`.`battery` AS car_battery," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    to_char(`active_session`.`start_timestamp`,'YYYY-MM-DD HH24:MI:SS')," +
-		"    to_char(`latest_session`.`start_time`,'YYYY-MM-DD HH24:MI:SS')) AS start_time " +
+		"    to_char(`latest_session`.`start_time`,'YYYY-MM-DD HH24:MI:SS')) AS start_time," +
 		"  IF(`active_session`.`unique_id` != 0," +
 		"    `active_session`.`charged_range`," +
 		"    `latest_session`.`charged_range`) AS added_range " +

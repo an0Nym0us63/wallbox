@@ -227,7 +227,7 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 		},
 		"start_time": {
 			Component: "sensor",
-			Getter:    func() string { return w.Data.SQL.StartTime },
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.StartTime) },
 			Config: map[string]string{
 				"name": "Start Time",
 			},
