@@ -35,7 +35,7 @@ type DataCache struct {
 		S2open         int     `redis:"S2open"`
 		ScheduleEnergy float64 `redis:"scheduleEnergy"`
 		GreenEnergy    float64 `redis:"session.green_energy"`
-		AddedRange     float64 `redis:"session.charge_range"`
+		AddedRange     float64 `redis:"session.charged_range"`
 		ChargingTime   float64 `redis:"session.charging_time"`
 		ChargingSpeed  float64 `redis:"session.charging_speed"`
 	}
