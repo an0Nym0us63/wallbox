@@ -184,6 +184,39 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
+		"green_cost": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost*(w.Data.SQL.GreenEnergy)/1000) },
+			Config: map[string]string{
+				"name":                        "Cost of grid",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"grid_cost_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost*(w.Data.RedisState.ScheduleEnergy-w.Data.RedisState.GreenEnergy)/1000) },
+			Config: map[string]string{
+				"name":                        "Cost of grid",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
+		"green_cost_active": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost*(w.Data.RedisState.GreenEnergy)/1000) },
+			Config: map[string]string{
+				"name":                        "Cost of grid",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
 		"halo_brightness": {
 			Component: "number",
 			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
