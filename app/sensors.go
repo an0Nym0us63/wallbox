@@ -173,6 +173,17 @@ func getEntities(w *wallbox.Wallbox) map[string]Entity {
 				"suggested_display_precision": "2",
 			},
 		},
+		"grid_cost": {
+			Component: "sensor",
+			Getter:    func() string { return fmt.Sprint(w.Data.SQL.EnergyCost*(w.Data.SQL.AddedEnergy-w.Data.SQL.GreenEnergy)/1000) },
+			Config: map[string]string{
+				"name":                        "Cost of grid",
+				"device_class":                "energy",
+				"unit_of_measurement":         "€",
+				"state_class":                 "measurement",
+				"suggested_display_precision": "2",
+			},
+		},
 		"halo_brightness": {
 			Component: "number",
 			Setter:    func(val string) { w.SetHaloBrightness(strToInt(val)) },
