@@ -57,6 +57,8 @@ func LaunchBridge(configPath string) {
 			"device": map[string]string{
 				"identifiers": serialNumber,
 				"name":        c.Settings.DeviceName,
+				"model":        "Pulsar Plus",
+				"manufacturer":        "WallBox",
 			},
 		}
 		if val.Setter != nil {
